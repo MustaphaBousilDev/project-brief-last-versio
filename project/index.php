@@ -247,16 +247,27 @@
 				<div class="ms-md-4 mt-md-0 mt-2"><i class="far fa-clock fa-fw me-1 text-dark text-opacity-50"></i> 14 day(s)</div>
 			</div>
 
-			<?php if (isset($_SESSION['message'])): ?>
-				<div class="alert alert-green alert-dismissible fade show">
-				<strong>Success!</strong>
-					<?php 
-						echo $_SESSION['message']; 
-						unset($_SESSION['message']);
+			
+				
+			<?php
+					if(isset($_SESSION) && !empty($_SESSION)){
+						foreach($_SESSION as $err){
+						if(isset($_SESSION['success'])){
+							
+						}else{
+							echo "<div class='alert alert-danger'>".$err."</div>";
+						}
+					}
+					if(isset($_SESSION['success'])){
+						echo "<div class='alert alert-success'>".$_SESSION['success']."</div>";
+					}
+					session_unset();
+                    session_destroy();
+				    
+				}
 					?>
-					<button type="button" class="btn-close" data-bs-dismiss="alert"></span>
-				</div>
-			<?php endif ?>
+		
+			
 			<div class="row">
 					
 				<div class="col-xl-4 col-lg-6">
@@ -516,13 +527,13 @@
 		var type;
 		function get_id(id){
             let id_btn=document.getElementById(`${id}`).getAttribute('id');
-			console.log(id_btn)
+			//console.log(id_btn)
 			//document.querySelector('#form-task').setAttribute('action','index.php')
 			console.log(document.querySelector('#form-task'));
 			document.getElementById('task-id').value=id_btn;
-			console.log("ggg")
-			console.log(document.getElementById('task-id'))
-			v=id_btn;
+			//console.log("ggg")
+			//console.log(document.getElementById('task-id'))
+			//v=id_btn;
 			type = document.getElementById(`${id}type`).dataset.task;
 			type=parseInt(type)
             document.getElementById("task-update-btn").style.display="block" 
@@ -535,22 +546,18 @@
 			 else{
                 document.getElementById('task-type-bug').checked=true
 			 } 
-			console.log(`dmlfdfmldfmldfldmfld${type}`)
+			//console.log(`dmlfdfmldfmldfldmfld${type}`)
             document.getElementById('task-status').value=document.getElementById(`${id}`).dataset.task 
 			document.getElementById('task-priority').value=document.querySelector('.priority-button').dataset.task
 			document.getElementById('task-title').value=document.querySelector('.title-button').dataset.task;
 			document.getElementById('task-description').value=document.querySelector('.description-button').dataset.task;
 			document.getElementById('task-date')=document.querySelector('.date-button').dataset.task;
 			console.log(document.getElementById('task-title').value)
-
-
-			
-			
 		}
 		document.getElementById('add').addEventListener('click',function(e){
 			//document.querySelector('#form-task').setAttribute('action','index.php')
 			document.querySelector('#form-task').reset()
-			console.log(document.querySelector('form'))
+			//console.log(document.querySelector('form'))
 			document.getElementById("task-update-btn").style.display="none" 
 			document.getElementById("task-delete-btn").style.display="none"
 			document.getElementById("task-save-btn").style.display="block"

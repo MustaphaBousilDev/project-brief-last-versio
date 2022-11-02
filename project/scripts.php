@@ -63,21 +63,18 @@ function add(){
         $type=intval($_POST['task-type']);
         $status=intval($_POST['status']);
         $priority=intval($_POST['task-priority']);
-        $Error_msg=array();
-        if(empty($title)){
-            $Error_msg[]='Title Cant Be Empty';
-        }
-        if(empty($description)){
-            $Error_msg[]='Description Cant Be Empty';
-        }
-        if(empty($date)){
-            $Error_msg[]='date Cant Be Empty';
-        }
+        //$Error_msg=array();
         
-        foreach($Error_msg as $err){
-            echo "<div class='alert alert-danger'>".$err."</div>";
-        }
-        if(empty($Error_msg)){
+			if(empty($title)){
+                $_SESSION["err-title"]='Title Cant Be Empty';
+			}
+			if(empty($description)){
+				$_SESSION['err-desc']='Description Cant Be Empty';
+			}
+			if(empty($date)){
+				$_SESSION['err-date']='date Cant Be Empty';
+			}
+        if(empty($_SESSION)){
             $stmt=$conn->prepare("INSERT INTO tasks (title,description,task_datetime,type_id,status_id,priority_id) VALUES (:title,:description,:date,:type_id,:status_id,:priority_id)");
             $stmt->execute(array(
                 'title' => $title ,
@@ -87,15 +84,16 @@ function add(){
                 'status_id'=>$status,
                 'priority_id'=>$priority 
             ));
+            $_SESSION['success']="SUCCESS ADDED TASK";
         }
-        echo "<script>location.href='index.php'</script>";
-        echo "<script>location.reload()</script>";
-        $_SESSION['message']="Task has been added Succesfly";
+        
+        //$_SESSION['message']="Task has been added Succesfly";
         
         
     }else{
         echo "<div class='alert alert-danger'>Sorry We Can Insert this data in database</div>";
     }
+    header('location:index.php');
 }
 
 
