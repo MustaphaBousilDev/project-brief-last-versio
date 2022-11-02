@@ -7,21 +7,6 @@ if(isset($_POST['save'])){add();}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function delete(){
     global  $conn;
     $id=$_POST['id'];

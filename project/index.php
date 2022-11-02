@@ -496,7 +496,7 @@
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Date</label>
-								<input name="date" type="date" class="form-control" id="task-date"/>
+								<input value="YYYY-MM-DD" name="date" type="date" class="form-control" id="task-date"/>
 							</div>
 							<div class="mb-0">
 								<label class="form-label">Description</label>
@@ -563,6 +563,8 @@
 			document.getElementById("task-save-btn").style.display="block"
 
 		})
+
+		console.log("ldglfllfgllg");
        
 
 
